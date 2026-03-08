@@ -27,3 +27,11 @@ document.querySelectorAll("section").forEach((section) => {
   section.style.transition = "all 0.8s ease-out";
   observer.observe(section);
 });
+
+const menu = document.querySelector('#mobile-menu');
+const menuLinks = document.querySelector('.nav-menu');
+
+menu.addEventListener('click', function() {
+    menu.classList.toggle('is-active');
+    menuLinks.classList.toggle('active');
+});

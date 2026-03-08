@@ -13,15 +13,18 @@ body {
   overflow-x: hidden;
 }
 
-/* NAVBAR */
+/* --- NAVBAR CORE --- */
 .navbar {
   position: fixed;
+  top: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center; /* Tambahkan agar logo & menu sejajar vertikal */
   padding: 30px 10%;
   z-index: 1000;
   transition: 0.4s ease;
+  background: transparent; /* Default awal transparan */
 }
 
 .navbar.scrolled {
@@ -33,23 +36,104 @@ body {
 .logo {
   color: #3b82f6;
   font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
 }
-.nav {
+
+/* --- NAV MENU (DESKTOP) --- */
+.nav-menu {
   display: flex;
-  gap: 30px;
+  gap: 30px; /* Gunakan gap untuk jarak antar menu */
   list-style: none;
 }
-.nav a {
+
+.nav-menu a {
   text-decoration: none;
-  color: #333;
+  color: #333; /* Warna saat navbar masih transparan/atas */
   font-weight: 500;
   transition: 0.3s;
 }
-.navbar.scrolled .nav a {
+
+/* Warna teks saat navbar berubah gelap setelah di-scroll */
+.navbar.scrolled .nav-menu a {
   color: #fff;
 }
-.nav a:hover {
+
+.nav-menu a:hover {
   color: #3b82f6 !important;
+}
+
+/* Sembunyikan hamburger di desktop */
+.menu-toggle {
+  display: none;
+}
+
+/* --- RESPONSIVE (MOBILE) --- */
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 20px 5%; /* Perkecil padding di HP */
+    background: #071428; /* Paksa background gelap di HP agar teks terbaca */
+  }
+
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    z-index: 1001; /* Pastikan di atas menu */
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    width: 100%;
+    height: 100vh; /* Menu menutupi seluruh layar HP */
+    position: absolute;
+    top: 0; /* Mulai dari paling atas */
+    left: -100%; /* Sembunyikan di kiri */
+    opacity: 0;
+    transition: all 0.5s ease;
+    background: #071428;
+    justify-content: center; /* Menu rata tengah vertikal */
+    align-items: center; /* Menu rata tengah horizontal */
+    gap: 10px;
+  }
+
+  /* Saat menu aktif (diklik via JS) */
+  .nav-menu.active {
+    left: 0;
+    opacity: 1;
+  }
+
+  .nav-menu li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-menu a {
+    color: #fff !important; /* Di HP teks selalu putih */
+    font-size: 1.5rem;
+    display: block;
+    padding: 15px 0;
+  }
+
+  /* Styling garis hamburger */
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background: white;
+  }
+
+  /* Animasi X saat hamburger diklik */
+  .menu-toggle.is-active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.is-active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .menu-toggle.is-active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
 }
 
 /* --- HERO (Classic & Centered) --- */
